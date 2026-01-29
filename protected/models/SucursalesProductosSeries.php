@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * This is the model class for table "sucursales_productos_series".
+ *
+ * The followings are the available columns in table 'sucursales_productos_series':
+ * @property integer $id
+ * @property integer $id_producto
+ * @property string $id_sucursal
+ * @property string $serie
+ * @property string $lote
+ * @property double $cantidad_stock
+ */
+class SucursalesProductosSeries extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'sucursales_productos_series';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('id_producto', 'numerical', 'integerOnly'=>true),
+			array('cantidad_stock', 'numerical'),
+			array('id_sucursal, serie, lote', 'length', 'max'=>255),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, id_producto, id_sucursal, serie, lote, cantidad_stock', 'safe', 'on'=>'search'),
+		);
+	}
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'id_producto' => 'Id Producto',
+			'id_sucursal' => 'Id Sucursal',
+			'serie' => 'Serie',
+			'lote' => 'Lote',
+			'cantidad_stock' => 'Cantidad Stock',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('id_producto',$this->id_producto);
+		$criteria->compare('id_sucursal',$this->id_sucursal,true);
+		$criteria->compare('serie',$this->serie,true);
+		$criteria->compare('lote',$this->lote,true);
+		$criteria->compare('cantidad_stock',$this->cantidad_stock);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return SucursalesProductosSeries the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+}

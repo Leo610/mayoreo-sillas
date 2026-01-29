@@ -1,0 +1,148 @@
+/*TODO A MAYUSCULAS*/
+body { text-transform: uppercase !important; }
+input,select,textarea,button{  text-transform: uppercase !important;}
+/**/
+.header-logo a img { max-height: 50px; margin:0 !important;}
+
+.header-body{ border: none !important;}
+
+.breadcrumbs a { color: #000;}
+.breadcrumbs span{ color:#FFF;}
+
+.row{ padding-right: 10px; padding-left: 10px;}
+
+#footer{ padding: 0px !important; text-align: center;}
+
+#footer p { color:#fff; padding: 10px; margin:0;}
+
+#header .header-nav-main {    float: left;}
+
+.errorMessage,.errorSummary p ,.errorSummary,.fa-trash{ color: red;}
+
+.fa-pencil{ color:#000;}
+
+.fc-header-title{ text-transform: uppercase;;}
+
+.page-header {
+    background-color: #0057a6;
+    border-top: 0px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    min-height: 10px;
+}
+
+html.sticky-header-enabled #header .header-nav-main {
+	width: 100%;
+}
+
+input[type="file"] {
+    width: 150px;
+}
+
+fieldset {
+    background-color: #f5f5f5;
+     word-break: break-all;
+    border: 1px groove #444 !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    padding-top: 10px !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+fieldset p strong{ font-size: 1.2em; color:#000;}
+legend { 
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    margin-bottom: 0px;
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+ul.ui-autocomplete {
+    z-index: 1100;
+}
+/* ESTILOS TABLA TOTALES */
+#totales tr{border-bottom:2px solid #CCC;  }
+#totales tr td{padding:10px 10px; }
+#totales tr:nth-child(even) {background: #FFFFFF}
+#totales tr:nth-child(odd) {background: #EFEFEF}
+
+
+
+td,th {
+    font-size: 12px !important;
+}
+  
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+form label {
+    color:#000;
+    margin-top: 8px;
+    margin-bottom: 0 !important;
+}
+.dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus
+{
+    background-color: #eaeaea;
+}
+.dropdown-menu > .active > a {
+    color: #f96b06 !important;
+    text-decoration: none;
+    background-color: #fff;
+    outline: 0;
+}
+
+/*
+.ui-autocomplete { max-height: 200px; max-width: 300px; overflow-y: scroll; overflow-x: hidden;}
+.ui-menu-item{ font-size: 10px; color:blue;}
+*/
+
+/***/
+.divetapas,.divetapasrecurrentes{ float: left; margin: 10px; padding: 2px; border: 1px solid #efefef;    box-shadow: 2px 5px 3px 0 #DDDDDD, 0 1px 2px 0 #FFFFFF inset; min-height: 400px; }
+.contenidoetapa,.contenidoetaparecurrente{
+    min-height: 400px;
+}
+.sumatoria{
+    display: block;text-align: center; font-weight: bold; color: #000;
+}
+.tituloetapa{
+text-align: center; font-weight: bold; text-transform: uppercase; color: #000; font-weight: 15px; padding-bottom: 5px; padding-top: 5px;
+}
+.divoportunidad,.divoportunidadrecurrente{ width: 95%; text-align: left; background: #FBFBFB; padding: 5px; margin: 0 auto; margin-bottom: 5px; cursor:pointer;}
+.divetapas a,.divetapasrecurrentes a{ text-decoration: none !important;}
+.divoportunidad:hover,.divoportunidadrecurrente:hover{background-color: #EAEAEA; color:#000;}
+.divoportunidad:hover p,.divoportunidadrecurrente:hover p{ color:#000;}
+@media (max-width: 991px) {
+    .divetapas{ width: 100% !important;}
+    .divetapasrecurrentes{ width: 100% !important;}
+}
+.divoportunidadrecurrente p,.divoportunidad  p{ font-size: 10px;line-height: 14px;}
+/* CLASE PARA LA ACCION VENCIDA*/
+.vencido{
+    background: RED !important;
+    color:white;
+}
+.vencido a{
+    color:white;
+}
+.vencidoop, .vencidoop .divoportunidad,.vencidoop .divoportunidadrecurrente  {
+    background: RED !important;
+    color:white;
+}
+.vencidoop .divoportunidad p,.vencidoop .divoportunidadrecurrente p{
+   background: RED !important;
+    color:black;
+}
+/**/
+.select2-container--bootstrap {
+    display: block;
+    width: 100% !important;
+}
+
+label{
+    margin-bottom: 0;
+    margin-top: 5px;
+}

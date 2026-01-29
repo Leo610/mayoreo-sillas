@@ -1,0 +1,12 @@
+RewriteEngine on
+
+# Redireccionamos con triple www, para el seo
+#RewriteCond %{HTTP_HOST} ^amlub\.com.mx$ [NC]
+#RewriteRule ^(.*)$ http://www.amlub.com.mx/$1 [R=301,L]
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
