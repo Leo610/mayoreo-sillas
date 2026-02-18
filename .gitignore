@@ -1,0 +1,20 @@
+# Config local (cada servidor tiene su propia BD)
+protected/config/database.php
+
+# Runtime y logs
+protected/runtime/
+
+# Assets generados
+assets/
+
+# Archivos temporales
+temp_*.php
+temp_*.ps1
+nul
+contexto-proyecto-mayoreo-sillas.txt
+
+# Excel VBA (referencia, no va al servidor)
+rh roscator/
+
+# Claude
+.claude/

@@ -183,6 +183,24 @@
 												),
 
 												array(
+													'label' => 'RH',
+													'url' => array('rhempleados/admin'),
+													'active' => $M_Controller == 'rhempleados' || $M_Controller == 'rhvacaciones' || $M_Controller == 'rhnomina' || $M_Controller == 'rhfiniquitos',
+													'linkOptions' => array(
+														'class' => 'dropdown-toggle',
+													),
+													'itemOptions' => array('class' => 'dropdown'),
+													'items' => array(
+														array('label' => 'Empleados', 'url' => array('rhempleados/admin')),
+														array('label' => 'Nomina', 'url' => array('rhnomina/periodos')),
+														array('label' => 'Vacaciones', 'url' => array('rhvacaciones/index')),
+														array('label' => 'Historial Empleados', 'url' => array('rhvacaciones/historial')),
+														array('label' => 'Dias Festivos', 'url' => array('rhvacaciones/festivos')),
+														array('label' => 'Finiquitos', 'url' => array('rhfiniquitos/index')),
+													)
+												),
+
+												array(
 													'label' => 'Modulos',
 													'url' => array('administracion/modulos'),
 													'active' => $M_Method == 'modulos',
@@ -202,7 +220,7 @@
 
 												array(
 													'label' => Yii::app()->user->name,
-													'url' => '#',
+													'url' => 'javascript:;',
 													'active' => $M_Method == 'modulos',
 													'linkOptions' => array(
 														'class' => 'dropdown-toggle',
@@ -236,3 +254,57 @@
 	</div>
 
 </header>
+
+<?php
+// Popup Prima Vacacional - SOLO los JUEVES, replica exacta del VBA ThisWorkbook.cls
+// VBA: If esJueves Then → For i = 0 To 6 → DateAdd("d", -i, hoy) → compara Month+Day
+$_esJueves = ((int)date('N') == 4); // PHP: 4 = Jueves
+if ($_esJueves && in_array($M_Controller, array('rhempleados', 'rhvacaciones', 'rhnomina', 'rhfiniquitos'))):
+	$_alertas = array();
+	$_emps = Empleados::model()->findAll("empleado_estatus='ACTIVO' AND empleado_fecha_ingreso IS NOT NULL");
+	$_hoy = new DateTime('today');
+	foreach ($_emps as $_e) {
+		if (empty($_e->empleado_fecha_ingreso)) continue;
+		$_ingDt = new DateTime($_e->empleado_fecha_ingreso);
+		$_mesIng = (int)$_ingDt->format('m');
+		$_diaIng = (int)$_ingDt->format('d');
+		// VBA: For i = 0 To 6 → revisa hoy (jueves) y 6 dias atras (hasta viernes)
+		$_encontrado = false;
+		for ($_i = 0; $_i <= 6; $_i++) {
+			$_diaCheck = clone $_hoy;
+			$_diaCheck->modify('-' . $_i . ' days');
+			if ((int)$_diaCheck->format('m') == $_mesIng && (int)$_diaCheck->format('d') == $_diaIng) {
+				$_encontrado = true;
+				break;
+			}
+		}
+		if (!$_encontrado) continue;
+		// VBA: añosLaborados = Year(hoy) - Year(fechaIngreso) con ajuste
+		$_anios = (int)$_hoy->format('Y') - (int)$_ingDt->format('Y');
+		if ((int)$_hoy->format('m') < $_mesIng || ((int)$_hoy->format('m') == $_mesIng && (int)$_hoy->format('d') < $_diaIng)) {
+			$_anios--;
+		}
+		if ($_anios >= 1) {
+			// Verificar si ya se pago en la nomina de este periodo
+			if ($_e->isPrimaYaPagada()) continue;
+			$_alertas[] = array('n' => $_e->empleado_nombre, 'a' => $_anios);
+		}
+	}
+	if (!empty($_alertas)):
+?>
+<script>
+$(document).ready(function(){
+	var key = 'primaVac_<?= date("Y-m-d"); ?>';
+	if (sessionStorage.getItem(key)) return;
+	sessionStorage.setItem(key, '1');
+	var msg = '';
+	<?php foreach ($_alertas as $_al): ?>
+	msg += 'PAGAR PRIMA VACACIONAL A <?= addslashes($_al['n']); ?> POR <?= $_al['a']; ?> AÑO(S)\n';
+	<?php endforeach; ?>
+	alert(msg);
+});
+</script>
+<?php
+	endif;
+endif;
+?>
